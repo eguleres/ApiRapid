@@ -26,7 +26,7 @@ def Index():
 @app.route('/', methods =['GET','POST'])
 def weather():
     url = ('https://newsapi.org/v2/everything?'
-       'q=Solar Energy&'
+       'q=Gold&'
        'from=2022-06-10&'
        'sortBy=popularity&'
        'language=en&'
