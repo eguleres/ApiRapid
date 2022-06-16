@@ -20,7 +20,34 @@
 <script type = "text/javascript" 
          src = "{{ url_for('static', filename = 'js/jput.min.js') }}" ></script>
    
+         <style type="text/css">
+        
+        /*Style row formatter contents*/
+#example-table .tabulator-row table{
+    vertical-align: middle;
+    border-collapse:collapse;
+}
 
+#example-table .tabulator-row table img{
+    border:2px solid #ccc;
+}
+
+#example-table .tabulator-row table tr td{
+     border:none;
+}
+
+#example-table .tabulator-row table tr td:first-of-type{
+    width:60px;
+}
+
+#example-table .tabulator-row table tr td div{
+    padding:5px;
+}
+        
+
+        
+        
+        </style>
 <script>
    $(document).ready(function(){
         var tabledata;
@@ -55,10 +82,11 @@
         var table = new Tabulator("#example-table", {
     height:"5011px",
     data: tabledatastr,
-    layout:"fitColumns",
+    layout:"fitDataFill",
+    
     columns:[
     {title:"Author", field:"author", width:250, }, //frozen column
-    {title:"Content", field:"content", width:400,widthGrow:2},
+    {title:"Content", field:"content", width:400,widthGrow:2, variableHeight:true},
     {title:"Image", field:"urlToImage", width:450},
     
     ],
