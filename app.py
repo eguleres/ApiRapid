@@ -25,8 +25,15 @@ def Index():
 
 @app.route('/', methods =['GET','POST'])
 def weather():
+    if request.method == 'POST':
+      data=request.get_json()
+      src=data['src']
+    
+    if request.method == 'GET':
+      src="gold"
+    
     url = ('https://newsapi.org/v2/everything?'
-       'q=Gold&'
+       'q='+src+'&'
        'from=2022-06-10&'
        'sortBy=popularity&'
        'language=en&'
@@ -57,6 +64,48 @@ def weather():
    
     
     return render_template('index.html', title="page", context=mylist)
+  
+@app.route('/search', methods =['GET','POST'])
+def search():
+    if request.method == 'POST':
+      data=request.get_json()
+      src=data['src']
+    
+    if request.method == 'GET':
+      src="gold"
+    
+    url = ('https://newsapi.org/v2/everything?'
+       'q='+src+'&'
+       'from=2022-06-10&'
+       'sortBy=popularity&'
+       'language=en&'
+       'apiKey=2fa1ddd1e3b349639d3e63cc6fbdeef2')
+
+    response = requests.get(url,verify=False)
+    listofResponse=response.json()
+    
+    articles=listofResponse["articles"]
+    
+    desc = []
+    news = []
+    img = []
+ 
+ 
+    for i in range(len(articles)):
+        myarticles = articles[i]
+ 
+ 
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])
+ 
+ 
+ 
+    mylist = zip(news, desc, img)
+ 
+   
+    
+    return jsonify(articles)
 
 if(__name__ == "__main__"):
  app.run(debug=True)
