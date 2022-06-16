@@ -39,7 +39,7 @@
         dataType: "json",
          processData: false,
          contentType: "application/json",
-        
+         data: JSON.stringify(send_data),
         success: function (data) {
           
             console.log("success");
@@ -48,17 +48,18 @@
             tabledata=tabledatastr.toString().replace(/"(\w+)"\s*:/g, '$1:');
               alert(tabledatastr.toString().replace(/"(\w+)"\s*:/g, '$1:'));
             //  $("#example-table").load(location.href + " #example-table");
-
+            $("#jsontext").html(tabledata);
 
 
          
         var table = new Tabulator("#example-table", {
-    height:"311px",
-    data: JSON.parse(tabledata),
+    height:"5011px",
+    data: tabledatastr,
+    layout:"fitColumns",
     columns:[
     {title:"Author", field:"author", width:250, }, //frozen column
-    {title:"Content", field:"content", width:400},
-    //{title:"Image", field:"urlToImage", width:450},
+    {title:"Content", field:"content", width:400,widthGrow:2},
+    {title:"Image", field:"urlToImage", width:450},
     
     ],
 });
@@ -66,7 +67,7 @@
 
           },
         
-          data: JSON.stringify(send_data),
+         
          
         });
 
@@ -107,6 +108,7 @@
 
      <div id="example-table"></div>
        
+     <div id="jsontext"></div>
   
 </body>
 </html>
